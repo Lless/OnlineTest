@@ -21,7 +21,7 @@ public class TestController {
 
 
     @PostMapping
-    public void answerQuestion(@RequestAttribute String answer) {
-
+    public void answerQuestion(@RequestBody String answer) {
+        System.out.println(answer);
     }
 }
