@@ -1,7 +1,8 @@
-var app = new Vue({
+import Vue from 'vue'
+import App from 'vue-components/App.vue'
+import 'vue-modules/vue-resource'
+
+new Vue({
     el: '#app',
-    data: {
-        test: ""
-    },
-    template: '<div><h1>Online test</h1><test/></div>',
+    render: a => a(App),
 })
