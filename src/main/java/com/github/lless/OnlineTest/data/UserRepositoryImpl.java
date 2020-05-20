@@ -17,6 +17,12 @@ public class UserRepositoryImpl implements UserRepository{
     public User findByUsername(String username) {
         return jdbc.queryForObject("select * from User where username=?", this::mapRowToUser, username);
     }
+
+    @Override
+    public void save(User user) {
+        System.out.println(user);
+    }
+
     private User mapRowToUser(ResultSet rs, int rowNum) throws SQLException {
         return new User(rs.getLong("id"),
                 rs.getString("username"),

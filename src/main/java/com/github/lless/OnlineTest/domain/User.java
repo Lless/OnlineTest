@@ -1,16 +1,18 @@
 package com.github.lless.OnlineTest.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.sun.tools.javac.util.List;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
 import java.util.Collection;
 
 @Data
 @AllArgsConstructor
+@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+@ToString(of={"username"})
 public class User implements UserDetails {
     private Long id;
     private final String username;
@@ -18,7 +20,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
