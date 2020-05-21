@@ -30,6 +30,7 @@
                 this.$http.post('/login', { username, password })
                     .then( res => {
                         if (! res) return;
+                        this.$store.commit("signin")
                         Vue.http.interceptors.push((request, next) => {
                             request.headers.set('Authorization', 'Basic ' + window.btoa(username + ':' + password))
                             next()
