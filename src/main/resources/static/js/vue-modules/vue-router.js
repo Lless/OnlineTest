@@ -12,7 +12,7 @@ let router = new VueRouter({
     routes: [
         { path:'/', component: Main },
         { path:'/auth', component: Auth },
-        { path:'/test', component: Test, meta: { requiresAuth: true }},
+        { path:'/test/start', component: Test, meta: { requiresAuth: true }},
         { path:'*', component: Main }
     ]
 })

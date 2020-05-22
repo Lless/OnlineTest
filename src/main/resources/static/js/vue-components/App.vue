@@ -8,7 +8,7 @@
                 <router-link to="/auth">Register</router-link>
             </span>
             <span v-if="isLoggedIn">
-                <router-link to="/test">Test</router-link>
+                <router-link to="/test/start">Test</router-link>
                 | <a @click="logout">Logout</a>
             </span>
         </nav>

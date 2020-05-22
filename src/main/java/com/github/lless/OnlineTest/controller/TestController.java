@@ -10,20 +10,19 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/question")
+@RequestMapping("/test")
 @RequiredArgsConstructor
 public class TestController {
     private final EntryQuestionRepository repo;
 
     @GetMapping
     @JsonView(Views.Question.class)
-    public Question getQuestion() {
+    public Question getQuestion(@AuthenticationPrincipal User user) {
         return repo.findById(1L);
     }
 
 
     @PostMapping
     public void answerQuestion(@RequestBody String answer, @AuthenticationPrincipal User user) {
-        System.out.println(answer);
     }
 }
