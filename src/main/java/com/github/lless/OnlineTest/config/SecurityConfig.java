@@ -1,4 +1,4 @@
-package com.github.lless.OnlineTest.security;
+package com.github.lless.OnlineTest.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

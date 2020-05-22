@@ -1,4 +1,4 @@
-package com.github.lless.OnlineTest;
+package com.github.lless.OnlineTest.config;
 
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;

@@ -1,4 +1,4 @@
-package com.github.lless.OnlineTest.security;
+package com.github.lless.OnlineTest.service;
 
 import com.github.lless.OnlineTest.data.UserRepository;
 import com.github.lless.OnlineTest.domain.User;
