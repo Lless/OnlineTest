@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 @Repository
 @RequiredArgsConstructor
-public class EntryQuestionRepositoryImpl implements EntryQuestionRepository {
+public class QuestionRepositoryImpl implements QuestionRepository {
     private final JdbcTemplate jdbc;
 
     @Override

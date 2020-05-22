@@ -3,17 +3,21 @@ package com.github.lless.OnlineTest.domain;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class EntryQuestion implements Question {
     private Long id;
     @JsonView(Views.Question.class)
-    private String question;
-    private String answer;
+    private final QuestionType type = QuestionType.ENTRY_QUESTION;
+    @JsonView(Views.Question.class)
+    private final String question;
+    private final String answer;
 
-    public EntryQuestion(String question, String answer) {
-        this.question = question;
-        this.answer = answer;
+    @Override
+    public boolean checkAnswer(String answer) {
+        return this.answer.equals(answer);
     }
 }
