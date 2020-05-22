@@ -18,11 +18,7 @@ public class EntryQuestion implements Question {
 
     @Override
     public boolean checkAnswer(Object answer) {
-        try {
-            String casted = (String) answer;
-        } catch (ClassCastException e) {
-            return false;
-        }
+        if (!(answer instanceof String)) return false;
         return this.answer.equals(answer);
     }
 }
