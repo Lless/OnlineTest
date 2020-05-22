@@ -1,6 +1,6 @@
 package com.github.lless.OnlineTest.domain;
 
 public interface Question {
-    boolean checkAnswer(String answer);
+    boolean checkAnswer(Object answer);
     Long getId();
 }

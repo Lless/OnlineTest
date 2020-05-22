@@ -17,7 +17,12 @@ public class EntryQuestion implements Question {
     private final String answer;
 
     @Override
-    public boolean checkAnswer(String answer) {
+    public boolean checkAnswer(Object answer) {
+        try {
+            String casted = (String) answer;
+        } catch (ClassCastException e) {
+            return false;
+        }
         return this.answer.equals(answer);
     }
 }
