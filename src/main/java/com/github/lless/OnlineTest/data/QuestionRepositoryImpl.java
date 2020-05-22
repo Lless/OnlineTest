@@ -26,9 +26,14 @@ public class QuestionRepositoryImpl implements QuestionRepository {
 
     @Override
     public Question findRandomExcept(List<Long> ids) {
-        Map idsMap = Collections.singletonMap("ids", ids);
-        return namedJdbc.queryForObject("select * from entry_question where id not in (:ids) order by rand() limit 1",
-                idsMap, this::mapRowToEntryQuestion);
+        if (ids.isEmpty())
+            return jdbc.queryForObject("select * from entry_question order by rand() limit 1",
+                    this::mapRowToEntryQuestion);
+        else {
+            Map idsMap = Collections.singletonMap("ids", ids);
+            return namedJdbc.queryForObject("select * from entry_question where id not in (:ids) order by rand() limit 1",
+                    idsMap, this::mapRowToEntryQuestion);
+        }
     }
 
     private EntryQuestion mapRowToEntryQuestion(ResultSet rs, int rowNum) throws SQLException {
