@@ -16,15 +16,19 @@
             }
         },
         created() {
-            this.$http.get('/test').then( result =>
-                result.json().then( data =>
-                    this.test = data
-                )
-            )
+            this.getQuestion()
         },
         methods: {
             send() {
-                this.$http.post('/test', this.answer).then(console.log, console.log)
+                this.$http.post('/test', this.answer).then(
+                this.getQuestion, console.log)
+            },
+            getQuestion() {
+                this.$http.get('/test').then( result =>
+                    result.json().then( data =>
+                        this.test = data
+                    )
+                )
             }
         }
     }
