@@ -9,7 +9,7 @@
             </span>
             <span v-if="isLoggedIn">
                 <router-link to="/test/start">Test</router-link>
-                | <a @click="logout">Logout</a>
+                | <a @click="logout" href="/">Logout</a>
             </span>
         </nav>
         <br/>
@@ -24,8 +24,9 @@ export default {
     },
     methods: {
         logout: function () {
-            this.$store.commit('signout')
-            this.$router.push('/auth')
+            location.reload();
+            //this.$store.commit('signout')
+            //this.$router.push('/auth')
         }
     },
 }
