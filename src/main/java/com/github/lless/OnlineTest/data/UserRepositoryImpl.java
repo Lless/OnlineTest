@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -17,12 +18,14 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public User findByUsername(String username) {
-        return jdbc.queryForObject("select * from User where username=?", this::mapRowToUser, username);
+        List<User> userList = jdbc.query("select * from User where username=?", this::mapRowToUser, username);
+        if (userList.isEmpty()) return null;
+        return userList.get(0);
     }
 
     @Override
     public void save(User user) {
-        System.out.println(user);
+        jdbc.update("insert into user(username, user_password) value (?, ?)", user.getUsername(), user.getPassword());
     }
 
     @Override

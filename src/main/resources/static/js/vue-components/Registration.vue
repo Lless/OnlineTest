@@ -1,16 +1,16 @@
 <template>
     <div>
-        <form @submit.prevent="auth">
-            <h3>Sign in</h3>
+        <form @submit.prevent="register">
+            <h3>Register</h3>
             <input required v-model="username" placeholder="Name"/>
             <br/>
             <input required v-model="password" type="password" placeholder="Password"/>
             <br/>
-            <button type="submit">Login</button>
+            <button type="submit">Register</button>
         </form>
         <br/>
         <br/>
-        <router-link to="/registration">Register</router-link>
+        <router-link to="/auth">Login</router-link>
     </div>
 </template>
 
@@ -24,10 +24,10 @@
             }
         },
         methods: {
-            auth: function () {
+            register: function () {
                 let username = this.username
                 let password = this.password
-                this.$http.post('/login', { username, password })
+                this.$http.post('/register', { username, password })
                     .then( res => {
                         if (! res) return;
                         this.$store.commit("signin")

@@ -5,7 +5,7 @@
             <router-link to="/">Home</router-link> |
             <span v-if="!isLoggedIn">
                 <router-link to="/auth">Login</router-link> |
-                <router-link to="/auth">Register</router-link>
+                <router-link to="/registration">Register</router-link>
             </span>
             <span v-if="isLoggedIn">
                 <router-link to="/test/start">Test</router-link>

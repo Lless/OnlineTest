@@ -21,7 +21,9 @@ public class AuthController {
 
     @PostMapping("/register")
     public boolean register(@RequestBody User user) {
-        userRepo.save(user);
+        if (userRepo.findByUsername(user.getUsername()) != null) return false;
+        User userWithEncodedPassword = new User(user.getUsername(), encoder.encode(user.getPassword()));
+        userRepo.save(userWithEncodedPassword);
         return true;
     }
 }
