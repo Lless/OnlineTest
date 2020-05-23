@@ -5,20 +5,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class EntryQuestion implements Question{
+public class ChoiceQuestion implements Question {
     private Long id;
     @JsonView(Views.Question.class)
-    private final QuestionType type = QuestionType.ENTRY_QUESTION;
+    private final QuestionType type = QuestionType.CHOICE_QUESTION;
     @JsonView(Views.Question.class)
     private final String question;
-    private final String answer;
+    @JsonView(Views.Question.class)
+    private final List<String> options;
+    private final Integer answer;
+
 
     @Override
     public boolean checkAnswer(Object answer) {
-        if (!(answer instanceof String)) return false;
+        if (!(answer instanceof Integer)) return false;
         return this.answer.equals(answer);
     }
 }
