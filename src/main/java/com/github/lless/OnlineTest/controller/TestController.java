@@ -23,7 +23,7 @@ public class TestController {
 
 
     @PostMapping
-    public void answerQuestion(@RequestBody String answer, @AuthenticationPrincipal User user) {
+    public void answerQuestion(@RequestBody(required = false) String answer, @AuthenticationPrincipal User user) {
         service.answerQuestion(user, answer);
     }
 }
