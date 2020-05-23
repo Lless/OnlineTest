@@ -65,6 +65,6 @@ public class QuestionRepositoryImpl implements QuestionRepository {
 
     private BasicQuestionInfo mapRowToBasicInfo(ResultSet rs, int rowNum) throws SQLException {
         return new BasicQuestionInfo(rs.getLong("id"),
-                QuestionType.valueOf(rs.getString("type")));
+                QuestionType.valueOf(rs.getString("question_type")));
     }
 }

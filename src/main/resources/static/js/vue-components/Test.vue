@@ -2,8 +2,18 @@
     <form>
         {{ test.question }}
         <br/>
-        <input type="text" placeholder="answer" v-model="answer" />
-        <input type="button" value="Save" @click="send" />
+        <div v-if="test.type=='ENTRY_QUESTION'">
+            <input type="text" placeholder="answer" v-model="answer" />
+            <input type="button" value="Save" @click="send" />
+        </div>
+        <div v-if="test.type=='CHOICE_QUESTION'">
+            <div v-for="(option, index) in test.options" :key="option">
+                <input type="radio" name="answer" v-model="answer" v-bind:value="index">
+                    {{ option }}
+                </input>
+            </div>
+            <input type="button" value="Save" @click="send" />
+        </div>
     </form>
 </template>
 
