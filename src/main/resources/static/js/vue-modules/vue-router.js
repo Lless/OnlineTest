@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Test from 'vue-components/Test.vue'
 import Auth from 'vue-components/Auth.vue'
 import Registration from 'vue-components/Registration.vue'
+import Result from 'vue-components/Result.vue'
 import Main from 'vue-components/MainPage.vue'
 import store from 'vue-modules/vuex.js'
 
@@ -14,6 +15,7 @@ let router = new VueRouter({
         { path:'/', component: Main },
         { path:'/auth', component: Auth },
         { path:'/registration', component: Registration },
+        { path:'/result', component: Result },
         { path:'/test/start', component: Test, meta: { requiresAuth: true }},
         { path:'*', component: Main }
     ]

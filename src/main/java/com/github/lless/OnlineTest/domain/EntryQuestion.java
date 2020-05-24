@@ -14,6 +14,7 @@ public class EntryQuestion implements Question{
     private final QuestionType type = QuestionType.ENTRY_QUESTION;
     @JsonView(Views.Question.class)
     private final String question;
+    @JsonView(Views.AnsweredQuestion.class)
     private final String answer;
 
     @Override

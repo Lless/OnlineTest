@@ -18,6 +18,7 @@ public class ChoiceQuestion implements Question {
     private final String question;
     @JsonView(Views.Question.class)
     private final List<String> options;
+    @JsonView(Views.AnsweredQuestion.class)
     private final Integer answer;
 
 
