@@ -58,22 +58,6 @@
                             this.options=["","","",""];
                         }
                     } , console.log)
-            },
-            register: function () {
-                this.$http.post('/register', { username, password })
-                    .then( res => {
-                        if (! res) return;
-                        this.$store.commit("signin")
-                        Vue.http.interceptors.push((request, next) => {
-                            request.headers.set('Authorization', 'Basic ' + window.btoa(username + ':' + password))
-                            next()
-                        })
-                        this.$router.push('/')
-                    })
-                    .catch(err =>  this.$http.interceptors.push((request, next) => {
-                            request.headers.set('Authorization', 'Basic ' + window.btoa(username + ':' + password))
-                            next()
-                        }))
             }
         }
     }

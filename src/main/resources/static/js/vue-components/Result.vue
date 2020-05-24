@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h3>Мои ответы</h3>
         <div v-for="result in results">
             {{result.question.question}}
             <div v-if="result.question.type=='ENTRY_QUESTION'">

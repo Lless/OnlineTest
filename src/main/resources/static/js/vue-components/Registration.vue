@@ -1,16 +1,16 @@
 <template>
     <div>
         <form @submit.prevent="register">
-            <h3>Register</h3>
-            <input required v-model="username" placeholder="Name"/>
+            <h3>Зарегистрироваться</h3>
+            <input required v-model="username" placeholder="Имя"/>
             <br/>
-            <input required v-model="password" type="password" placeholder="Password"/>
+            <input required v-model="password" type="password" placeholder="Пароль"/>
             <br/>
-            <button type="submit">Register</button>
+            <button type="submit">Зарегистрироваться</button>
         </form>
         <br/>
         <br/>
-        <router-link to="/auth">Login</router-link>
+        <router-link to="/auth">Войти</router-link>
     </div>
 </template>
 
