@@ -19,7 +19,8 @@ public class TestRepositoryImpl implements TestRepository {
     @Override
     public void addAnswer(User user, Question question, Object answer) {
         jdbc.update("insert into user_answer(user_id, question_id, answer, correct) value (?, ?, ?, ?)",
-                user.getId(), question.getId(), String.valueOf(answer), question.checkAnswer(answer));
+                user.getId(), question.getId(), answer==null ? null: String.valueOf(answer),
+                question.checkAnswer(answer));
     }
 
     @Override

@@ -6,7 +6,7 @@
             <div v-if="result.question.type=='ENTRY_QUESTION'">
                 Правильный ответ: {{result.question.answer}}
                 <br/>
-                Мой ответ: {{result.myAnswer}}
+                Мой ответ: {{result.myAnswer==null ? "-" : result.myAnswer}}
             </div>
 
             <div v-if="result.question.type=='CHOICE_QUESTION'">
@@ -17,7 +17,7 @@
                 </div>
                 Правильный ответ: {{+result.question.answer + 1}}
                 <br/>
-                Мой ответ: {{+result.myAnswer + 1}}
+                Мой ответ: {{result.myAnswer==null ? "-" : +result.myAnswer + 1}}
             </div>
 
             <br/>
