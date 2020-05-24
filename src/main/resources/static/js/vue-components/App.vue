@@ -10,6 +10,7 @@
             <span v-if="isLoggedIn">
                 <router-link to="/test/start">Test</router-link> |
                 <router-link to="/result">My answers</router-link> |
+                <router-link to="/newQuestion">Add new question</router-link> |
                 <a @click="logout" href="/">Logout</a>
             </span>
         </nav>

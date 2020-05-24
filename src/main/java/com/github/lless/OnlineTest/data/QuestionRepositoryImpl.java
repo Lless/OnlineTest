@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
@@ -20,6 +21,7 @@ import static com.github.lless.OnlineTest.domain.QuestionType.ENTRY_QUESTION;
 public class QuestionRepositoryImpl implements QuestionRepository {
     private final JdbcTemplate jdbc;
     private final NamedParameterJdbcTemplate namedJdbc;
+
     @Override
     public Question findById(Long id) {
         QuestionType type = jdbc.queryForObject("select question_type from question where id=?",
@@ -39,6 +41,23 @@ public class QuestionRepositoryImpl implements QuestionRepository {
                     idsMap, this::mapRowToBasicDto);
         }
         return findQuestionByInfo(dto);
+    }
+
+    @Override
+    @Transactional
+    public void addQuestion(EntryQuestion question, User author) {
+        jdbc.update("insert into Question(question_type, author_id) value ('ENTRY_QUESTION', ?)", author.getId());
+        jdbc.update("insert into Entry_Question value (LAST_INSERT_ID(), ?, ?)",
+                question.getQuestion(), question.getAnswer());
+    }
+
+    @Override
+    @Transactional
+    public void addQuestion(ChoiceQuestion question, User author) {
+        jdbc.update("insert into Question(question_type, author_id) value ('CHOICE_QUESTION', ?)", author.getId());
+        List<String> o = question.getOptions();
+        jdbc.update("insert into Choice_Question value (LAST_INSERT_ID(), ?, ?, ?, ?, ?, ?)",
+                question.getQuestion(), o.get(0), o.get(1), o.get(2), o.get(3), question.getAnswer());
     }
 
     private Question findQuestionByInfo(BasicQuestionDto dto) {

@@ -1,15 +1,14 @@
 package com.github.lless.OnlineTest.domain;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class ChoiceQuestion implements Question {
     private Long id;
     @JsonView(Views.Question.class)
