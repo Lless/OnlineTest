@@ -10,7 +10,8 @@
                 <router-link to="/test/start">Пройти тест</router-link> |
                 <router-link to="/result">Мои ответы</router-link> |
                 <router-link to="/newQuestion">Добавить новый вопрос</router-link> |
-                <router-link to="/stats">Статистика</router-link> |
+                <router-link to="/stats">Общая статистика</router-link> |
+                <router-link to="/mystats">Моя статистика</router-link> |
                 <a @click="logout" href="/">Выйти</a>
             </span>
         </nav>
