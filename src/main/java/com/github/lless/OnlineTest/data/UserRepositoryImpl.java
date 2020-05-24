@@ -38,6 +38,11 @@ public class UserRepositoryImpl implements UserRepository{
         jdbc.update("update user set current_question = null where user.id=?", user.getId());
     }
 
+    @Override
+    public long userCount() {
+        return jdbc.queryForObject("SELECT count(*) FROM onlinetestdb.user", Long.class);
+    }
+
     private User mapRowToUser(ResultSet rs, int rowNum) throws SQLException {
         long id = rs.getLong("current_question");
         Question question = id == 0 ? null : questionRepo.findById(id);

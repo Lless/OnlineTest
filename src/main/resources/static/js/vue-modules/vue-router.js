@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Test from 'vue-components/Test.vue'
 import Auth from 'vue-components/Auth.vue'
 import Registration from 'vue-components/Registration.vue'
+import Statistics from 'vue-components/Statistics.vue'
 import Result from 'vue-components/Result.vue'
 import NewQuestion from 'vue-components/NewQuestion.vue'
 import Main from 'vue-components/MainPage.vue'
@@ -13,9 +14,10 @@ Vue.use(VueRouter)
 let router = new VueRouter({
     mode: 'history',
     routes: [
-        { path:'/', component: Main },
+        { path:'/', component: Main},
         { path:'/auth', component: Auth },
         { path:'/registration', component: Registration },
+        { path:'/stats', component: Statistics },
         { path:'/result', component: Result, meta: { requiresAuth: true } },
         { path:'/newQuestion', component: NewQuestion, meta: { requiresAuth: true } },
         { path:'/test/start', component: Test, meta: { requiresAuth: true }},

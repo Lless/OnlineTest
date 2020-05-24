@@ -8,4 +8,5 @@ public interface UserRepository {
     void save(User user);
     void setCurrentQuestion(User user, Question question);
     void removeCurrentQuestion(User user);
+    long userCount();
 }
