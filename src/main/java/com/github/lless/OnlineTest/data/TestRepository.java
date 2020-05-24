@@ -6,7 +6,7 @@ import com.github.lless.OnlineTest.domain.User;
 
 import java.util.List;
 
-public interface StatisticsRepository {
+public interface TestRepository {
     void addAnswer(User user, Question question, Object answer);
     List<Long> getAnsweredQuestionIds(User user);
     List<BasicAnswerDto> getUserAnswers(User user);

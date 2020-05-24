@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class StatisticsRepositoryImpl implements StatisticsRepository {
+public class TestRepositoryImpl implements TestRepository {
     private final JdbcTemplate jdbc;
 
     @Override

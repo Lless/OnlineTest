@@ -43,7 +43,6 @@
             },
             getQuestion() {
                 this.$http.get('/test').then( result => {
-                    console.log(result)
                     if (!result.body) this.finished = true;
                         else result.json().then( data =>
                             this.test = data

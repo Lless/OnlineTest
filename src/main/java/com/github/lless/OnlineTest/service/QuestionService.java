@@ -1,7 +1,7 @@
 package com.github.lless.OnlineTest.service;
 
 import com.github.lless.OnlineTest.data.QuestionRepository;
-import com.github.lless.OnlineTest.data.StatisticsRepository;
+import com.github.lless.OnlineTest.data.TestRepository;
 import com.github.lless.OnlineTest.data.UserRepository;
 import com.github.lless.OnlineTest.domain.Question;
 import com.github.lless.OnlineTest.domain.User;
@@ -19,13 +19,13 @@ import java.util.List;
 public class QuestionService {
     private final UserRepository userRepo;
     private final QuestionRepository questionRepo;
-    private final StatisticsRepository statisticsRepository;
+    private final TestRepository testRepository;
     @Value("${test.size}")
     private Integer testSize;
 
     public Question getQuestion(User user) {
         if (user.getCurrentQuestion() != null) return user.getCurrentQuestion();
-        List<Long> answeredQuestions = statisticsRepository.getAnsweredQuestionIds(user);
+        List<Long> answeredQuestions = testRepository.getAnsweredQuestionIds(user);
         if ( answeredQuestions.size() >= testSize) return null;
         Question question = questionRepo.findRandomExcept(answeredQuestions);
         user.setCurrentQuestion(question);
@@ -39,11 +39,11 @@ public class QuestionService {
         Question question = user.getCurrentQuestion();
         user.setCurrentQuestion(null);
         userRepo.removeCurrentQuestion(user);
-        statisticsRepository.addAnswer(user, question, answer);
+        testRepository.addAnswer(user, question, answer);
     }
 
     public List<ExtendedAnswerDto> getUserAnswers(User user) {
-        List<BasicAnswerDto> basicDto = statisticsRepository.getUserAnswers(user);
+        List<BasicAnswerDto> basicDto = testRepository.getUserAnswers(user);
         List<ExtendedAnswerDto> extendedDto = new ArrayList<>();
         basicDto.forEach(dto -> extendedDto.add(new ExtendedAnswerDto(
                 questionRepo.findById(dto.getQuestionId()), dto.getAnswer())
