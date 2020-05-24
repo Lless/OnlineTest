@@ -1,7 +1,8 @@
 <template>
     <div>
         <h2>Тест</h2>
-        <form>
+        <div v-if="finished">Прохождение теста завершено</div>
+        <form v-else>
             {{ test.question }}
             <br/>
             <div v-if="test.type=='ENTRY_QUESTION'">
@@ -25,7 +26,8 @@
         data() {
             return {
                 test: "",
-                answer: ""
+                answer: "",
+                finished: false
             }
         },
         created() {
@@ -40,10 +42,13 @@
                 , console.log)
             },
             getQuestion() {
-                this.$http.get('/test').then( result =>
-                    result.json().then( data =>
-                        this.test = data
-                    )
+                this.$http.get('/test').then( result => {
+                    console.log(result)
+                    if (!result.body) this.finished = true;
+                        else result.json().then( data =>
+                            this.test = data
+                        )
+                    }
                 )
             }
         }

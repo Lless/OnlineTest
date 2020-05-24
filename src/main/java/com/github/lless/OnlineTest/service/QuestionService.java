@@ -3,11 +3,12 @@ package com.github.lless.OnlineTest.service;
 import com.github.lless.OnlineTest.data.QuestionRepository;
 import com.github.lless.OnlineTest.data.StatisticsRepository;
 import com.github.lless.OnlineTest.data.UserRepository;
-import com.github.lless.OnlineTest.dto.BasicAnswerDto;
-import com.github.lless.OnlineTest.dto.ExtendedAnswerDto;
 import com.github.lless.OnlineTest.domain.Question;
 import com.github.lless.OnlineTest.domain.User;
+import com.github.lless.OnlineTest.dto.BasicAnswerDto;
+import com.github.lless.OnlineTest.dto.ExtendedAnswerDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,10 +20,13 @@ public class QuestionService {
     private final UserRepository userRepo;
     private final QuestionRepository questionRepo;
     private final StatisticsRepository statisticsRepository;
+    @Value("${test.size}")
+    private Integer testSize;
 
     public Question getQuestion(User user) {
         if (user.getCurrentQuestion() != null) return user.getCurrentQuestion();
         List<Long> answeredQuestions = statisticsRepository.getAnsweredQuestionIds(user);
+        if ( answeredQuestions.size() >= testSize) return null;
         Question question = questionRepo.findRandomExcept(answeredQuestions);
         user.setCurrentQuestion(question);
         userRepo.setCurrentQuestion(user, question);
