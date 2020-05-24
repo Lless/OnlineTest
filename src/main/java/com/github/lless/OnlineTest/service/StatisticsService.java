@@ -26,10 +26,14 @@ public class StatisticsService {
     public UserStatsDto getUserStats(User user) {
         Integer correctAnswers = repo.getCorrectAnswersCount(user);
         Long started = repo.getStartedTestUserCount();
+        Integer answeredQuestions = repo.getAnsweredQuestionsCount(user);
         return new UserStatsDto(
-                (float)correctAnswers/repo.getAnsweredQuestionsCount(user),
-                (float)repo.getUsersWithMoreCorrectAnswersCount(correctAnswers)/(started-1),
-                (float)repo.getUsersWithLessCorrectAnswersCount(correctAnswers)/(started-1)
+                (float)correctAnswers /
+                        ( answeredQuestions > 0 ? answeredQuestions : 1) ,
+                (float)repo.getUsersWithMoreCorrectAnswersCount(correctAnswers) /
+                        ((started > 2) ? (started-1) : started),
+                (float)repo.getUsersWithLessCorrectAnswersCount(correctAnswers) /
+                        ((started > 2) ? (started-1) : started)
         );
     }
 }

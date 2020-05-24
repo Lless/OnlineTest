@@ -40,7 +40,7 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public long userCount() {
-        return jdbc.queryForObject("SELECT count(*) FROM onlinetestdb.user", Long.class);
+        return jdbc.queryForObject("SELECT count(*) FROM user", Long.class);
     }
 
     private User mapRowToUser(ResultSet rs, int rowNum) throws SQLException {
