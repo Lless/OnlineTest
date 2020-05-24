@@ -1,6 +1,7 @@
 package com.github.lless.OnlineTest.data;
 
 import com.github.lless.OnlineTest.domain.*;
+import com.github.lless.OnlineTest.dto.BasicQuestionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -23,27 +24,27 @@ public class QuestionRepositoryImpl implements QuestionRepository {
     public Question findById(Long id) {
         QuestionType type = jdbc.queryForObject("select question_type from question where id=?",
                 QuestionType.class, id);
-        return findQuestionByInfo(new BasicQuestionInfo(id, type));
+        return findQuestionByInfo(new BasicQuestionDto(id, type));
     }
 
     @Override
     public Question findRandomExcept(List<Long> ids) {
-        BasicQuestionInfo info;
+        BasicQuestionDto dto;
         if (ids.isEmpty())
-            info = jdbc.queryForObject("select * from question order by rand() limit 1",
-                    this::mapRowToBasicInfo);
+            dto = jdbc.queryForObject("select * from question order by rand() limit 1",
+                    this::mapRowToBasicDto);
         else {
             Map<String,List<Long>> idsMap = Collections.singletonMap("ids", ids);
-            info = namedJdbc.queryForObject("select * from question where id not in (:ids) order by rand() limit 1",
-                    idsMap, this::mapRowToBasicInfo);
+            dto = namedJdbc.queryForObject("select * from question where id not in (:ids) order by rand() limit 1",
+                    idsMap, this::mapRowToBasicDto);
         }
-        return findQuestionByInfo(info);
+        return findQuestionByInfo(dto);
     }
 
-    private Question findQuestionByInfo(BasicQuestionInfo info) {
-        return jdbc.queryForObject("select * from " + info.getType() + " where id=?",
-                ENTRY_QUESTION.equals(info.getType()) ? this::mapRowToEntryQuestion : this::mapRowToChoiceQuestion,
-                info.getId());
+    private Question findQuestionByInfo(BasicQuestionDto dto) {
+        return jdbc.queryForObject("select * from " + dto.getType() + " where id=?",
+                ENTRY_QUESTION.equals(dto.getType()) ? this::mapRowToEntryQuestion : this::mapRowToChoiceQuestion,
+                dto.getId());
     }
     private EntryQuestion mapRowToEntryQuestion(ResultSet rs, int rowNum) throws SQLException {
         return new EntryQuestion(rs.getLong("id"),
@@ -63,8 +64,8 @@ public class QuestionRepositoryImpl implements QuestionRepository {
                 rs.getInt("answer"));
     }
 
-    private BasicQuestionInfo mapRowToBasicInfo(ResultSet rs, int rowNum) throws SQLException {
-        return new BasicQuestionInfo(rs.getLong("id"),
+    private BasicQuestionDto mapRowToBasicDto(ResultSet rs, int rowNum) throws SQLException {
+        return new BasicQuestionDto(rs.getLong("id"),
                 QuestionType.valueOf(rs.getString("question_type")));
     }
 }

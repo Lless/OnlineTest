@@ -3,8 +3,8 @@ package com.github.lless.OnlineTest.service;
 import com.github.lless.OnlineTest.data.QuestionRepository;
 import com.github.lless.OnlineTest.data.StatisticsRepository;
 import com.github.lless.OnlineTest.data.UserRepository;
-import com.github.lless.OnlineTest.domain.BasicAnswerInfo;
-import com.github.lless.OnlineTest.domain.ExtendedAnswerInfo;
+import com.github.lless.OnlineTest.dto.BasicAnswerDto;
+import com.github.lless.OnlineTest.dto.ExtendedAnswerDto;
 import com.github.lless.OnlineTest.domain.Question;
 import com.github.lless.OnlineTest.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -38,12 +38,12 @@ public class QuestionService {
         statisticsRepository.addAnswer(user, question, answer);
     }
 
-    public List<ExtendedAnswerInfo> getUserAnswers(User user) {
-        List<BasicAnswerInfo> answers = statisticsRepository.getUserAnswers(user);
-        List<ExtendedAnswerInfo> result = new ArrayList<>();
-        answers.forEach(info -> result.add(new ExtendedAnswerInfo(
-                questionRepo.findById(info.getQuestionId()), info.getAnswer())
+    public List<ExtendedAnswerDto> getUserAnswers(User user) {
+        List<BasicAnswerDto> basicDto = statisticsRepository.getUserAnswers(user);
+        List<ExtendedAnswerDto> extendedDto = new ArrayList<>();
+        basicDto.forEach(dto -> extendedDto.add(new ExtendedAnswerDto(
+                questionRepo.findById(dto.getQuestionId()), dto.getAnswer())
         ));
-        return result;
+        return extendedDto;
     }
 }

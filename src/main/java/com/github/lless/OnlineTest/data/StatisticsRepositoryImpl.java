@@ -1,6 +1,6 @@
 package com.github.lless.OnlineTest.data;
 
-import com.github.lless.OnlineTest.domain.BasicAnswerInfo;
+import com.github.lless.OnlineTest.dto.BasicAnswerDto;
 import com.github.lless.OnlineTest.domain.Question;
 import com.github.lless.OnlineTest.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -29,13 +29,13 @@ public class StatisticsRepositoryImpl implements StatisticsRepository {
     }
 
     @Override
-    public List<BasicAnswerInfo> getUserAnswers(User user) {
+    public List<BasicAnswerDto> getUserAnswers(User user) {
         return jdbc.query("select question_id, answer from user_answer where user_id=?",
                 this::mapRowToMap, user.getId());
     }
 
-    private BasicAnswerInfo mapRowToMap (ResultSet rs, int rowNum) throws SQLException {
-        return new BasicAnswerInfo(
+    private BasicAnswerDto mapRowToMap (ResultSet rs, int rowNum) throws SQLException {
+        return new BasicAnswerDto(
             rs.getLong("question_id"),
             rs.getString("answer")
         );

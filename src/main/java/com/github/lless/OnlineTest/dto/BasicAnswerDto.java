@@ -1,11 +1,11 @@
-package com.github.lless.OnlineTest.domain;
+package com.github.lless.OnlineTest.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class BasicAnswerInfo {
+public class BasicAnswerDto {
     private Long questionId;
     private String answer;
 }
